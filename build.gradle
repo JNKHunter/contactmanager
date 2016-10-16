@@ -1,0 +1,15 @@
+group 'tech.eats.art'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.hibernate:hibernate-core:5.1.0.Final'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.4'
+}
