@@ -1,5 +1,6 @@
 package tech.eats.art.contactmanager;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -12,7 +13,7 @@ import tech.eats.art.contactmanager.model.Contact;
  */
 public class Application {
 
-    //public static final SessionFactory sessionFactory = buildSessionFactory();
+    public static final SessionFactory sessionFactory = buildSessionFactory();
 
     private static SessionFactory buildSessionFactory() {
         final ServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
@@ -25,6 +26,10 @@ public class Application {
                 .withPhone(1234567l)
                 .build();
 
-        System.out.println(contact);
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.save(contact);
+        session.getTransaction().commit();
+        session.close();
     }
 }

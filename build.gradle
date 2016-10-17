@@ -12,4 +12,5 @@ repositories {
 dependencies {
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
     compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.4'
+    compile 'javax.transaction.jta:1.1'
 }
