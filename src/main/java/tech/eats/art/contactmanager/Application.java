@@ -31,9 +31,7 @@ public class Application {
 
         save(contact);
 
-        for(Contact c : fetchAllContacts()){
-            System.out.println(c);
-        }
+        fetchAllContacts().stream().forEach(System.out::println);
 
     }
 
