@@ -29,9 +29,37 @@ public class Application {
                 .withPhone(1234567l)
                 .build();
 
-        save(contact);
+        int id = save(contact);
 
+        System.out.printf("%n%nBefore update%n%n");
         fetchAllContacts().stream().forEach(System.out::println);
+
+        Contact c = findContactById(id);
+        c.setFirstName("Kat");
+        System.out.printf("%n%nUpdating...%n%n");
+        update(c);
+        System.out.printf("%n%nUpdate complete.%n%n");
+        fetchAllContacts().stream().forEach(System.out::println);
+
+    }
+
+    private static Contact findContactById(int id){
+        Session session = sessionFactory.openSession();
+
+        Contact contact = session.get(Contact.class,id);
+
+        session.close();
+
+        return contact;
+
+    }
+
+    private static void update(Contact contact){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(contact);
+        session.getTransaction().commit();
+        session.close();
 
     }
 
@@ -47,11 +75,13 @@ public class Application {
         return contacts;
     }
 
-    private static void save(Contact contact) {
+    private static int save(Contact contact) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(contact);
+        int id = (int)session.save(contact);
         session.getTransaction().commit();
         session.close();
+
+        return id;
     }
 }
