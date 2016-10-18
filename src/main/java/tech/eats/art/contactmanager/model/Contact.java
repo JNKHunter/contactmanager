@@ -26,7 +26,7 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(ContactBuilder builder){
+    public Contact(ContactBuilder builder) {
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.phone = builder.phone;
@@ -84,7 +84,7 @@ public class Contact {
         this.phone = phone;
     }
 
-    public static class ContactBuilder{
+    public static class ContactBuilder {
         private String firstName;
         private String lastName;
         private String email;
@@ -95,17 +95,17 @@ public class Contact {
             this.lastName = lastName;
         }
 
-        public ContactBuilder withEmail(String email){
+        public ContactBuilder withEmail(String email) {
             this.email = email;
             return this;
         }
 
-        public ContactBuilder withPhone(Long phone){
+        public ContactBuilder withPhone(Long phone) {
             this.phone = phone;
             return this;
         }
 
-        public Contact build(){
+        public Contact build() {
             return new Contact(this);
         }
     }

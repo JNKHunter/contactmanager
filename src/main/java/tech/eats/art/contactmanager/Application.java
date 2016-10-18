@@ -41,12 +41,17 @@ public class Application {
         System.out.printf("%n%nUpdate complete.%n%n");
         fetchAllContacts().stream().forEach(System.out::println);
 
+        System.out.printf("%n%nDeleting object%n%n");
+        delete(c);
+        System.out.printf("%n%nDelete complete%n%n");
+        fetchAllContacts().stream().forEach(System.out::println);
+
     }
 
-    private static Contact findContactById(int id){
+    private static Contact findContactById(int id) {
         Session session = sessionFactory.openSession();
 
-        Contact contact = session.get(Contact.class,id);
+        Contact contact = session.get(Contact.class, id);
 
         session.close();
 
@@ -54,17 +59,24 @@ public class Application {
 
     }
 
-    private static void update(Contact contact){
+    private static void update(Contact contact) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.update(contact);
         session.getTransaction().commit();
         session.close();
+    }
 
+    private static void delete(Contact contact) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(contact);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @SuppressWarnings("unchecked")
-    private static List<Contact> fetchAllContacts(){
+    private static List<Contact> fetchAllContacts() {
         Session session = sessionFactory.openSession();
 
         Criteria criteria = session.createCriteria(Contact.class);
@@ -78,7 +90,7 @@ public class Application {
     private static int save(Contact contact) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        int id = (int)session.save(contact);
+        int id = (int) session.save(contact);
         session.getTransaction().commit();
         session.close();
 
